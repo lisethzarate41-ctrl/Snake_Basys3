@@ -62,3 +62,77 @@ El sistema está dividido en **12 módulos**, correspondientes a 11 módulos fun
 ## 1. 🎮 Reglas del juego
 
 El objetivo es controlar una serpiente que se desplaza por un tablero de **32 × 32 casillas**, recolectando comida y evitando las colisiones.
+### 🎨 Elementos del juego
+
+| Elemento | Color en el panel | Función |
+|:---:|:---:|---|
+| 🐍 Cabeza | 🟡 Amarillo | Avanza una casilla cada 0,2 segundos |
+| Cuerpo | 🟢 Verde | Sigue el movimiento de la cabeza |
+| 🍎 Comida | 🔴 Rojo | Aumenta la longitud en una casilla y el puntaje en una unidad |
+| ☠️ Veneno | 🟣 Magenta | Disminuye la longitud en una casilla |
+
+### ▶️ Inicio
+
+- El juego comienza en el estado **ESPERA**.
+- La cabeza se ubica inicialmente en la posición **(15, 15)**.
+- La primera tecla de dirección inicia el movimiento.
+
+### ❌ Condiciones de derrota
+
+El jugador pierde cuando:
+
+- La serpiente choca contra los bordes del tablero.
+- La cabeza colisiona con su propio cuerpo.
+- Consume veneno cuando únicamente queda la cabeza.
+
+Cuando ocurre una derrota, el puntaje aparece en **rojo**.
+
+### 🏆 Condición de victoria
+
+El jugador gana cuando la serpiente ocupa las **1024 casillas del tablero**.
+
+En este caso, el puntaje aparece en **verde**.
+
+### ⚙️ Reglas adicionales
+
+- No se permiten giros de 180°.
+- Las direcciones opuestas al movimiento actual se ignoran.
+- La comida y el veneno se generan mediante un **LFSR de 11 bits**.
+- Los objetos se ubican en casillas libres del tablero.
+
+---
+
+## 2. ⌨️ Controles y salidas
+
+### 🎮 Controles del teclado
+
+| Tecla / botón | Acción |
+|:---:|---|
+| W / ↑ | Mover hacia arriba |
+| A / ← | Mover hacia la izquierda |
+| S / ↓ | Mover hacia abajo |
+| D / → | Mover hacia la derecha |
+| Enter | Reiniciar el juego |
+| BTNC | Reset general |
+
+### 💡 Salidas de la FPGA
+
+| Salida | Función |
+|---|---|
+| LD0–LD15 | Representación del puntaje en binario |
+| `leds_estado[1:0]` | Indicación del estado del juego |
+
+### Estados del sistema
+
+| Código | Estado |
+|:---:|---|
+| `00` | ESPERA |
+| `01` | JUGANDO |
+| `10` | PERDIÓ |
+| `11` | GANÓ |
+
+**Nota:** las señales `leds_estado[1:0]` están asignadas a los pines G19 y H19, correspondientes al conector VGA de la Basys 3.
+
+Por esta razón, el estado puede observarse mediante simulación o utilizando indicadores externos conectados adecuadamente.
+
+---
