@@ -4,11 +4,17 @@
 
 ### Proyecto Final de Electrónica Digital
 
-![Verilog](https://img.shields.io/badge/Lenguaje-Verilog-blue)
-![FPGA](https://img.shields.io/badge/FPGA-Basys_3-green)
-![Vivado](https://img.shields.io/badge/Software-Vivado-orange)
-![HUB75](https://img.shields.io/badge/Matriz_RGB-HUB75_32x32-purple)
-![Estado](https://img.shields.io/badge/Proyecto-Académico-informational)
+
+[![Verilog](https://img.shields.io/badge/Lenguaje-Verilog-blue)](https://en.wikipedia.org/wiki/Verilog)
+
+[![FPGA](https://img.shields.io/badge/FPGA-Basys_3-green)](https://digilent.com/reference/programmable-logic/basys-3/start)
+
+[![Vivado](https://img.shields.io/badge/Software-Vivado-orange)](https://www.amd.com/en/products/software/adaptive-socs-and-fpgas/vivado.html)
+
+[![HUB75](https://img.shields.io/badge/Matriz_RGB-HUB75_32x32-purple)](https://github.com/hzeller/rpi-rgb-led-matrix)
+
+[![Proyecto](https://img.shields.io/badge/Proyecto-Académico-blue)](docs/informe_snake.pdf)
+
 
 **Escuela Colombiana de Ingeniería Julio Garavito**
 
