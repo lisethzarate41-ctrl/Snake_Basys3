@@ -136,3 +136,93 @@ En este caso, el puntaje aparece en **verde**.
 Por esta razón, el estado puede observarse mediante simulación o utilizando indicadores externos conectados adecuadamente.
 
 ---
+## 3. Estructura del repositorio
+
+El proyecto se encuentra organizado en carpetas que separan los módulos de hardware, las simulaciones, las restricciones y la documentación.
+
+```text
+Snake_Basys3/
+│
+├── rtl/
+│   └── Módulos Verilog
+│
+├── tb/
+│   └── Testbenches
+│
+├── constraints/
+│   └── Snake_Basys3_JA_JB.xdc
+│
+├── sim/
+│   └── run_all.sh
+│
+├── prueba/
+│   └── hub75_prueba_top.v
+│
+├── docs/
+│   ├── informe_snake.pdf
+│   └── esquemas/
+│       ├── Esquemas_bloques_Snake.pdf
+│       ├── png/
+│       └── drawio/
+│
+└── README.md
+```
+
+### Descripción de las carpetas
+
+| Carpeta | Contenido |
+|---|---|
+| `rtl/` | Módulos Verilog del sistema, incluido `snake_top.v` |
+| `tb/` | Testbenches de los módulos y pruebas de integración |
+| `constraints/` | Restricciones de reloj y asignación de pines |
+| `sim/` | Script de ejecución de simulaciones |
+| `prueba/` | Diseño de prueba de la matriz HUB75 |
+| `docs/` | Informe, diagramas y documentación técnica |
+
+---
+## 4.  Hardware y montaje
+
+###  Materiales utilizados
+
+- Tarjeta FPGA **Basys 3** de Digilent.
+- Cable micro-USB.
+- Matriz LED RGB **HUB75 de 32 × 32 píxeles**, barrido 1/16.
+- Fuente ATX **Codegen 250XA1, 450 W**.
+- Teclado USB.
+- 16 cables jumper hembra-hembra.
+
+La fuente ATX proporciona el riel de **+5 V**, con una capacidad máxima indicada de 40 A, para alimentar el panel.
+
+###  Conexiones del panel HUB75
+
+Las conexiones corresponden al conector de **ENTRADA** del panel.
+
+| Pin HUB75 | Señal | Pmod Basys 3 | Pin FPGA |
+|:---:|---|---|---|
+| 1, 2, 3 | R1, G1, B1 | JA1, JA2, JA3 | J1, L2, J2 |
+| 4 | GND | GND de JA | — |
+| 5, 6, 7 | R2, G2, B2 | JA4, JA7, JA8 | G2, H1, K2 |
+| 8 | Sin conectar | — | — |
+| 9, 10 | A, B | JA9, JA10 | H2, G3 |
+| 11, 12 | C, D | JB1, JB2 | A14, A16 |
+| 13, 14, 15 | CLK, LAT, OE | JB3, JB4, JB7 | B15, B16, A15 |
+| 16 | GND | GND de JB | — |
+
+### Otras conexiones
+
+| Señal | Pin FPGA | Función |
+|---|---|---|
+| `clk` | W5 | Reloj de 100 MHz |
+| `rst` | U18 | Botón central BTNC |
+| `ps2_clk` | C17 | Reloj del teclado |
+| `ps2_data` | B17 | Datos del teclado |
+
+###  Precauciones de alimentación
+
+- El panel HUB75 se alimenta desde la fuente ATX, **nunca desde el VCC del Pmod**.
+- La fuente y la Basys 3 deben compartir una referencia de tierra común.
+- Se debe verificar la polaridad y las conexiones antes de energizar el circuito.
+- Para encender: primero la fuente y después la Basys 3.
+- Para apagar: primero la Basys 3 y después la fuente.
+
+---
