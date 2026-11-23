@@ -143,7 +143,7 @@ El proyecto se encuentra organizado en carpetas que separan los módulos de hard
 ```text
 Snake_Basys3/
 │
-├── rtl/
+├── src/
 │   └── Módulos Verilog
 │
 ├── tb/
@@ -171,7 +171,7 @@ Snake_Basys3/
 
 | Carpeta | Contenido |
 |---|---|
-| `rtl/` | Módulos Verilog del sistema, incluido `snake_top.v` |
+| `src/` | Módulos Verilog del sistema, incluido `snake_top.v` |
 | `tb/` | Testbenches de los módulos y pruebas de integración |
 | `constraints/` | Restricciones de reloj y asignación de pines |
 | `sim/` | Script de ejecución de simulaciones |
@@ -335,7 +335,7 @@ Los resultados se almacenan en:
 
 1. Crear un proyecto RTL.
 2. Seleccionar el dispositivo `xc7a35tcpg236-1`.
-3. Agregar los archivos de `rtl/` como **Design Sources**.
+3. Agregar los archivos de `src/` como **Design Sources**.
 4. Agregar los archivos de `tb/` como **Simulation Sources**.
 5. Seleccionar el testbench deseado.
 6. Hacer clic derecho y seleccionar **Set as Top**.
