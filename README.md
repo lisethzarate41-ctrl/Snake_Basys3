@@ -162,8 +162,7 @@ Snake_Basys3/
 │   ├── informe_snake.pdf
 │   └── esquemas/
 │       ├── Esquemas_bloques_Snake.pdf
-│       ├── png/
-│       └── drawio/
+│       └── png/
 │
 └── README.md
 ```
@@ -306,7 +305,7 @@ Se utiliza una frecuencia de 3,125 MHz para el reloj del panel, debido a problem
 |---|---|---|
 | Vivado | 2026.1 | Síntesis, implementación, simulación y programación |
 | Icarus Verilog | 12.0 | Ejecución de testbenches |
-| diagrams.net | Web | Visualización y edición de esquemas |
+| diagrams.net | Web | Elaboración de los esquemas |
 
 ###  Simulación con Icarus Verilog
 
@@ -520,7 +519,6 @@ La documentación técnica se encuentra en la carpeta `docs/`.
 | `docs/informe_snake.pdf` | Informe del proyecto en formato IEEE |
 | `docs/esquemas/Esquemas_bloques_Snake.pdf` | Diagramas de bloques y máquinas de estados |
 | `docs/esquemas/png/` | Diagramas exportados como imágenes |
-| `docs/esquemas/drawio/` | Archivos editables de los esquemas |
 
 ### Elaboración de los esquemas
 
@@ -541,10 +539,6 @@ Los diagramas representan los registros, contadores, comparadores, multiplexores
 Los números sobre las conexiones representan el ancho de los buses.
 
 Los registros utilizan la señal de reloj `clk` de 100 MHz.
-
-Los archivos `.drawio` pueden abrirse desde diagrams.net mediante:
-
-**File → Open from → Device**
 
 ---
 
