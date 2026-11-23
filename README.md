@@ -371,3 +371,127 @@ Ejemplo:
 10. Encender el sistema y presionar una tecla de dirección para comenzar.
 
 --
+## 7.  Verificación y testbenches
+
+Para comprobar el funcionamiento de los módulos se desarrollaron testbenches autoverificados.
+
+###  Pruebas realizadas
+
+| Testbench | Verificación |
+|---|---|
+| `tb_snake_velocidad` | Generación del pulso y reinicio |
+| `tb_snake_direccion` | Tramas PS/2, paridad, teclas y giros |
+| `tb_snake_control` | Transiciones de la FSM y pruebas aleatorias |
+| `tb_snake_movimiento` | Movimiento en las cuatro direcciones |
+| `tb_snake_colisiones` | Bordes, cuerpo y excepción de la cola |
+| `tb_snake_cuerpo` | Crecimiento, veneno y memoria circular |
+| `tb_snake_objetos` | Generación y detección de objetos |
+| `tb_snake_puntaje` | Conteo, reinicio y saturación |
+| `tb_snake_control_matriz` | Señales CLK, LAT, OE y barrido |
+| `tb_snake_dibujo` | Colores y prioridad de objetos |
+| `tb_snake_top` | Integración de los módulos |
+| `tb_snake_wasd` | Reconocimiento de teclas |
+| `tb_snake_giros` | Cambios de dirección |
+| `tb_snake_enter` | Reinicio mediante Enter |
+| `tb_snake_fin_puntaje` | Visualización del puntaje final |
+
+### Casos especiales evaluados
+
+- Colisiones contra los cuatro bordes.
+- Colisión con el cuerpo de la serpiente.
+- Movimiento hacia la posición de la cola cuando esta se libera.
+- Consumo de veneno con longitud mínima.
+- Consumo de veneno con longitud superior a uno.
+- Dos cambios de dirección durante el mismo paso.
+- Bloqueo de direcciones opuestas.
+- Tramas PS/2 con errores de paridad.
+- Tramas PS/2 con errores de bit de parada.
+- Reinicio durante el barrido de la matriz.
+- Saturación del contador de puntaje.
+
+---
+
+## 8. Resultados
+
+### Resultados de simulación e implementación
+
+| Medida | Resultado |
+|---|---|
+| Testbenches | **15 de 15** |
+| Frecuencia principal | 100 MHz |
+| WNS | 0,145 ns |
+| WHS | 0,116 ns |
+| Rutas con falla | 0 de 23 373 |
+| Frecuencia máxima estimada | ≈ 101,5 MHz |
+| Reloj HUB75 | 3,125 MHz |
+| Refresco del panel | ≈ 194 Hz |
+| Tiempo de movimiento | 0,2 s |
+| Entradas/salidas | 35 de 106 |
+
+### Recursos de la FPGA
+
+| Recurso | Utilizados | Disponibles |
+|---|---|---|
+| LUT | Pendiente | 20 800 |
+| Flip-flops | Pendiente | 41 600 |
+| I/O | 35 | 106 |
+
+### Visualización del panel
+
+El refresco se calcula a partir de:
+
+- 16 grupos de filas.
+- 32 177 ciclos por grupo.
+- Un reloj principal de 100 MHz.
+
+Se obtiene un periodo aproximado de **5,15 ms**, equivalente a una frecuencia de refresco cercana a **194 Hz**.
+
+El tiempo de encendido indicado para los LED es del **96,7 %**.
+
+### Respuesta del teclado
+
+La recepción de una trama PS/2 requiere aproximadamente entre **0,7 y 1,1 ms**.
+
+Las teclas de dirección extendidas utilizan dos tramas.
+
+El cambio de dirección se aplica en el siguiente paso del juego, con una espera máxima de aproximadamente **0,2 segundos**.
+
+### Visualización del puntaje
+
+La conversión binario a BCD utiliza 12 ciclos y se realiza continuamente para actualizar el puntaje mostrado en el panel.
+
+---
+
+## 9. Limitaciones conocidas
+
+Durante el desarrollo se identificaron las siguientes limitaciones:
+
+**1. Representación del puntaje**
+
+El puntaje mostrado en la matriz utiliza 10 bits y alcanza un valor máximo de 1023.
+
+En los LED de la tarjeta se utilizan 16 bits, con saturación en 65 535.
+
+**2. Condición de victoria**
+
+La condición de victoria al ocupar las 1024 casillas fue verificada únicamente mediante simulación.
+
+**3. Cambios de dirección**
+
+Si se reciben dos direcciones durante un mismo paso, únicamente se aplica la primera.
+
+Esto evita que la serpiente realice dos giros consecutivos y termine invirtiendo su dirección.
+
+**4. Sincronización del reset**
+
+La entrada del botón central no utiliza un sincronizador.
+
+Aunque no se observaron fallas durante las pruebas, una mejora futura sería sincronizar esta entrada mediante flip-flops.
+
+**5. Margen de temporización**
+
+El margen de setup obtenido fue de 0,145 ns.
+
+Para aumentar la frecuencia de funcionamiento sería necesario optimizar o segmentar la ruta crítica mediante registros.
+
+---
