@@ -1,98 +1,119 @@
+
 `timescale 1ns/1ps
 // ============================================================
-// snake_direccion.v  (version con ecuaciones booleanas)
-// Lee el teclado PS/2 de la Basys 3 (puerto USB HOST) y decide
-// hacia donde va la serpiente.
+// snake_direccion.v
+// Recibe teclas PS/2 (flechas y WASD), reconoce Enter y controla
+// la direccion de la serpiente.
 //
-// Codigos PS/2 (scan code set 2):
-//   letras  (1 byte):       W 1D arriba, D 23 derecha, S 1B abajo, A 1C izquierda
-//   flechas = E0 + codigo:  arriba 75, derecha 74, abajo 72, izquierda 6B
-//   soltar una tecla = F0 + codigo (se ignora)
-//   Enter = 5A  -> tecla_enter (reinicia el juego)
-// Direccion: 00 arriba, 01 derecha, 10 abajo, 11 izquierda.
-// Reglas: no se puede devolver (giro opuesto) y maximo 1 giro por paso.
+// Direcciones: 00 arriba, 01 derecha, 10 abajo, 11 izquierda.
+// Reglas: no permite giros opuestos ni varios giros por paso.
+//
+// Apoyo de IA (ChatGPT): diseño del receptor PS/2, ecuaciones
+// booleanas, decodificacion de teclas y revision de reglas de giro.
 // ============================================================
 module snake_direccion(
     input  wire       clk, rst,
     input  wire       ps2_clk, ps2_data,
-    input  wire       move_tick,      // pulso cada paso (borra giro_usado)
-    input  wire       juego_activo,   // 1 = se esta jugando
+    input  wire       move_tick,
+    input  wire       juego_activo,
     output wire [1:0] dir_actual,
-    output wire       tecla_flecha,   // pulso: se oprimio una flecha
-    output wire       tecla_enter     // pulso: se oprimio Enter
+    output wire       tecla_flecha,
+    output wire       tecla_enter
 );
 
-// ---------- REGISTROS ----------
-reg [2:0] sc = 3'b111, sd = 3'b111;   // sincronizadores de ps2_clk y ps2_data
-reg [9:0] r  = 10'd0;                 // registro de desplazamiento (trama)
-reg [3:0] cuenta = 4'd0;              // bits recibidos 0..10
+// FIGURA 10: REGISTROS DEL RECEPTOR PS/2
+// Guardan muestras, bits recibidos y numero de bits de la trama.
+reg [2:0] sc = 3'b111, sd = 3'b111;
+reg [9:0] r  = 10'd0;
+reg [3:0] cuenta = 4'd0;
+
+// FIGURA 11: REGISTROS DE CONTROL Y DIRECCION
+// Recuerdan los prefijos, el giro y la direccion actual.
 reg extendida = 0, liberacion = 0, giro_usado = 0;
-reg [1:0] dir = 2'b01;                // arranca a la derecha
+reg [1:0] dir = 2'b01;
 reg flecha_r = 0, enter_r = 0;
 
-// ---------- BLOQUE 1: SINCRONIZADOR + DETECTOR DE FLANCO DE BAJADA ----------
-// 3 flip-flops en serie por senal. Bajada = antes 1, ahora 0.
+// BLOQUE 1: SINCRONIZADOR Y DETECTOR DE FLANCO (FIG. 10)
+// Detecta la bajada de ps2_clk y obtiene el bit recibido.
 wire bajada = sc[2] & ~sc[1];
 wire dato   = sd[2];
 
-// ---------- BLOQUE 2: CONTADOR DE BITS (incrementador de 4 bits + comparador) ----------
-wire [3:0] c_cnt = {c_cnt[2:0] & cuenta[2:0], 1'b1};   // half adders
+// BLOQUE 2: CONTADOR DE BITS (FIG. 10)
+// Incrementador de 4 bits construido con AND y XOR.
+// Detecta el bit 10, que corresponde al final de la trama.
+wire [3:0] c_cnt;
+assign c_cnt[0] = 1'b1;
+assign c_cnt[1] = cuenta[0];
+assign c_cnt[2] = cuenta[1] & cuenta[0];
+assign c_cnt[3] = cuenta[2] & cuenta[1] & cuenta[0];
 wire [3:0] cuenta_mas1 = cuenta ^ c_cnt;
-wire es_bit10  = cuenta[3] & ~cuenta[2] & cuenta[1] & ~cuenta[0];   // cuenta == 10 (1010)
-wire fin_trama = bajada & es_bit10;    // llego el bit de parada
 
-// ---------- BLOQUE 3: VERIFICAR TRAMA ----------
-// r = {paridad, d7..d0, inicio}. inicio=0, parada=1, paridad impar.
+wire es_bit10  = cuenta[3] & ~cuenta[2] & cuenta[1] & ~cuenta[0];
+wire fin_trama = bajada & es_bit10;
+
+// BLOQUE 3: VERIFICACION DE TRAMA (FIG. 10)
+// Extrae los 8 bits del codigo y verifica inicio, parada
+// y paridad impar. Indica si la trama fue valida o incorrecta.
 wire [7:0] codigo = r[8:1];
-wire paridad_ok = ^r[9:1];             // XOR de 9 bits = 1 si hay # impar de unos
+wire paridad_ok = ^r[9:1];
 wire trama_ok   = ~r[0] & dato & paridad_ok;
 wire valida = fin_trama &  trama_ok;
 wire error  = fin_trama & ~trama_ok;
 
-// ---------- BLOQUE 4: COMPARADORES DE CODIGO (igualdad con constante) ----------
+// BLOQUE 4: COMPARADORES DE CODIGO (FIG. 11)
+// Identifican prefijos E0/F0, flechas, WASD y Enter.
 wire es_E0 = (codigo == 8'hE0);
 wire es_F0 = (codigo == 8'hF0);
-wire es_75 = (codigo == 8'h75);   // arriba
-wire es_74 = (codigo == 8'h74);   // derecha
-wire es_72 = (codigo == 8'h72);   // abajo
-wire es_6B = (codigo == 8'h6B);   // izquierda
-wire es_5A = (codigo == 8'h5A);   // Enter
-wire es_1D = (codigo == 8'h1D);   // W arriba
-wire es_23 = (codigo == 8'h23);   // D derecha
-wire es_1B = (codigo == 8'h1B);   // S abajo
-wire es_1C = (codigo == 8'h1C);   // A izquierda
+wire es_75 = (codigo == 8'h75);
+wire es_74 = (codigo == 8'h74);
+wire es_72 = (codigo == 8'h72);
+wire es_6B = (codigo == 8'h6B);
+wire es_5A = (codigo == 8'h5A);
+wire es_1D = (codigo == 8'h1D);
+wire es_23 = (codigo == 8'h23);
+wire es_1B = (codigo == 8'h1B);
+wire es_1C = (codigo == 8'h1C);
 
-// ---------- BLOQUE 5: QUE TECLA FUE ----------
-wire byte_normal = valida & ~es_E0 & ~es_F0;      // ultimo byte de la secuencia
-wire presion     = byte_normal & ~liberacion;     // se oprimio (no se solto)
-wire es_flecha   = es_75 | es_74 | es_72 | es_6B;   // necesitan E0 antes
-wire es_wasd     = es_1D | es_23 | es_1B | es_1C;   // no necesitan E0
+// BLOQUE 5: DECODIFICACION DE TECLAS (FIG. 11)
+// Distingue pulsacion de liberacion y reconoce direcciones
+// mediante flechas extendidas o las teclas WASD.
+wire byte_normal = valida & ~es_E0 & ~es_F0;
+wire presion     = byte_normal & ~liberacion;
+wire es_flecha   = es_75 | es_74 | es_72 | es_6B;
+wire es_wasd     = es_1D | es_23 | es_1B | es_1C;
 wire flecha      = presion & ((extendida & es_flecha) | (~extendida & es_wasd));
 wire enter       = presion & es_5A;
 
-// ---------- BLOQUE 6: CODIFICADOR 8 a 2 (tecla -> direccion) ----------
-wire arriba    = es_75 | es_1D;   // flecha arriba o W
-wire derecha   = es_74 | es_23;   // flecha derecha o D
-wire abajo     = es_72 | es_1B;   // flecha abajo o S
-wire izquierda = es_6B | es_1C;   // flecha izquierda o A
-wire n1 = abajo | izquierda;      // 10 o 11
-wire n0 = derecha | izquierda;    // 01 o 11
+// BLOQUE 6: CODIFICADOR DE DIRECCION (FIG. 11)
+// Convierte la tecla reconocida en los bits n1 y n0.
+wire arriba    = es_75 | es_1D;
+wire derecha   = es_74 | es_23;
+wire abajo     = es_72 | es_1B;
+wire izquierda = es_6B | es_1C;
+wire n1 = abajo | izquierda;
+wire n0 = derecha | izquierda;
 
-// ---------- BLOQUE 7: REGLAS DE GIRO ----------
-wire opuesta = (n1 ^ dir[1]) & ~(n0 ^ dir[0]);   // nueva = dir XOR 10
-wire cambia  = (n1 ^ dir[1]) |  (n0 ^ dir[0]);   // nueva distinta de dir
+// BLOQUE 7: ACEPTACION DEL GIRO (FIG. 11)
+// Detecta direcciones contrarias y cambios de direccion.
+// Solo acepta giros permitidos cuando el juego esta activo.
+wire opuesta = (n1 ^ dir[1]) & ~(n0 ^ dir[0]);
+wire cambia  = (n1 ^ dir[1]) |  (n0 ^ dir[0]);
 wire aceptar = flecha & (~juego_activo | (~giro_usado & ~opuesta));
 
-// ---------- BLOQUE 8: SIGUIENTE ESTADO (MUX 2:1 + reset) ----------
-wire [9:0] r_D      = bajada ? {dato, r[9:1]} : r;          // desplaza a la derecha
+// BLOQUE 8: LOGICA DE SIGUIENTE ESTADO (FIGS. 10 Y 11)
+// Los MUX seleccionan entre conservar o actualizar registros.
+// rst reinicia el contador y deja la direccion en 01.
+wire [9:0] r_D      = bajada ? {dato, r[9:1]} : r;
 wire [3:0] cuenta_D = {4{~rst & ~fin_trama}} &
-                      (bajada ? cuenta_mas1 : cuenta);       // 0..10 y vuelve a 0
+                      (bajada ? cuenta_mas1 : cuenta);
 wire ext_D  = ~rst & ((valida & es_E0) | (extendida  & ~byte_normal & ~error));
 wire lib_D  = ~rst & ((valida & es_F0) | (liberacion & ~byte_normal & ~error));
 wire giro_D = ~rst & ((aceptar & juego_activo & cambia) | (giro_usado & ~move_tick));
 wire dir1_D = ~rst & (aceptar ? n1 : dir[1]);
-wire dir0_D =  rst | (aceptar ? n0 : dir[0]);                 // reset -> 01
+wire dir0_D =  rst | (aceptar ? n0 : dir[0]);
 
+// REGISTROS TIPO D (FIGS. 10 Y 11)
+// Actualizan simultaneamente sus valores en cada flanco de clk.
 always @(posedge clk) begin
     sc <= {sc[1:0], ps2_clk};
     sd <= {sd[1:0], ps2_data};
@@ -106,6 +127,8 @@ always @(posedge clk) begin
     enter_r    <= ~rst & enter;
 end
 
+// SALIDAS DEL MODULO
+// Entregan la direccion almacenada y los pulsos de tecla.
 assign dir_actual   = dir;
 assign tecla_flecha = flecha_r;
 assign tecla_enter  = enter_r;
