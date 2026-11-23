@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🐍 SNAKE — BASYS 3
+#  SNAKE — BASYS 3
 
 ### Proyecto Final de Electrónica Digital
 
@@ -28,7 +28,7 @@ Ingeniería Electrónica | Electrónica Digital | 2026
 
 ---
 
-## 📖 Descripción del proyecto
+##  Descripción del proyecto
 
 Este proyecto consiste en la implementación del videojuego **Snake** sobre una tarjeta FPGA **Basys 3**, equipada con un dispositivo Artix-7 XC7A35T y un reloj de 100 MHz.
 
@@ -42,7 +42,7 @@ El sistema está dividido en **12 módulos**, correspondientes a 11 módulos fun
 
 ---
 
-## 📑 Tabla de contenido
+##  Tabla de contenido
 
 1. [Reglas del juego](#1--reglas-del-juego)
 2. [Controles y salidas](#2--controles-y-salidas)
@@ -59,25 +59,25 @@ El sistema está dividido en **12 módulos**, correspondientes a 11 módulos fun
 
 ---
 
-## 1. 🎮 Reglas del juego
+## 1. Reglas del juego
 
 El objetivo es controlar una serpiente que se desplaza por un tablero de **32 × 32 casillas**, recolectando comida y evitando las colisiones.
-### 🎨 Elementos del juego
+###  Elementos del juego
 
 | Elemento | Color en el panel | Función |
 |:---:|:---:|---|
-| 🐍 Cabeza | 🟡 Amarillo | Avanza una casilla cada 0,2 segundos |
+|  Cabeza | 🟡 Amarillo | Avanza una casilla cada 0,2 segundos |
 | Cuerpo | 🟢 Verde | Sigue el movimiento de la cabeza |
-| 🍎 Comida | 🔴 Rojo | Aumenta la longitud en una casilla y el puntaje en una unidad |
-| ☠️ Veneno | 🟣 Magenta | Disminuye la longitud en una casilla |
+|  Comida | 🔴 Rojo | Aumenta la longitud en una casilla y el puntaje en una unidad |
+|  Veneno | 🟣 Magenta | Disminuye la longitud en una casilla |
 
-### ▶️ Inicio
+###  Inicio
 
 - El juego comienza en el estado **ESPERA**.
 - La cabeza se ubica inicialmente en la posición **(15, 15)**.
 - La primera tecla de dirección inicia el movimiento.
 
-### ❌ Condiciones de derrota
+###  Condiciones de derrota
 
 El jugador pierde cuando:
 
@@ -87,13 +87,13 @@ El jugador pierde cuando:
 
 Cuando ocurre una derrota, el puntaje aparece en **rojo**.
 
-### 🏆 Condición de victoria
+###  Condición de victoria
 
 El jugador gana cuando la serpiente ocupa las **1024 casillas del tablero**.
 
 En este caso, el puntaje aparece en **verde**.
 
-### ⚙️ Reglas adicionales
+###  Reglas adicionales
 
 - No se permiten giros de 180°.
 - Las direcciones opuestas al movimiento actual se ignoran.
@@ -102,9 +102,9 @@ En este caso, el puntaje aparece en **verde**.
 
 ---
 
-## 2. ⌨️ Controles y salidas
+## 2. Controles y salidas
 
-### 🎮 Controles del teclado
+###  Controles del teclado
 
 | Tecla / botón | Acción |
 |:---:|---|
@@ -115,7 +115,7 @@ En este caso, el puntaje aparece en **verde**.
 | Enter | Reiniciar el juego |
 | BTNC | Reset general |
 
-### 💡 Salidas de la FPGA
+###  Salidas de la FPGA
 
 | Salida | Función |
 |---|---|
