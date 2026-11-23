@@ -7,7 +7,8 @@
 //   - empieza en 0,
 //   - sube 1 por cada ciclo con comio_comida = 1,
 //   - no cambia si no come,
-//   - el reset lo devuelve a 0.
+//   - el reset lo devuelve a 0,
+//   - en 65535 se satura (no da la vuelta a 0).
 // ============================================================
 module tb_snake_puntaje;
 
@@ -68,9 +69,17 @@ initial begin
     rst = 1;
     revisar(0);
 
+    // 5. Saturacion: 65535 comidas seguidas -> 65535, y una mas no cambia
+    @(negedge clk);
+    rst          = 0;
+    comio_comida = 1;
+    repeat (65534) @(posedge clk);
+    revisar(65535);
+    revisar(65535);
+
     // Resultado
     if (errores == 0)
-        $display("OK PUNTAJE: 5 verificaciones");
+        $display("OK PUNTAJE: 7 verificaciones");
     else
         $display("FALLO PUNTAJE: %0d errores", errores);
 
