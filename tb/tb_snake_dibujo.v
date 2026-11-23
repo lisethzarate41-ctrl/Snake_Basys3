@@ -1,3 +1,5 @@
+// Apoyo de IA (Claude): generacion del testbench y
+// definicion de casos de prueba. Simulacion revisada en Vivado.
 `timescale 1ns/1ps
 // Testbench de snake_dibujo.
 // Hace de snake_cuerpo con un mapa pequeño (mapa_tb) y de controlador
