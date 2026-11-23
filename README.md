@@ -495,3 +495,85 @@ El margen de setup obtenido fue de 0,145 ns.
 Para aumentar la frecuencia de funcionamiento sería necesario optimizar o segmentar la ruta crítica mediante registros.
 
 ---
+## 10.  Declaración de uso de inteligencia artificial
+
+**Herramienta utilizada:** Claude (Anthropic).
+
+Durante el desarrollo del proyecto se utilizó inteligencia artificial como herramienta de apoyo en determinadas partes del código Verilog y en la elaboración y revisión de los testbenches.
+
+Su uso estuvo orientado a resolver dudas de implementación, corregir fragmentos específicos del código y apoyar la creación de pruebas para verificar el funcionamiento de los módulos.
+
+Los archivos de código y testbenches en los que se utilizó inteligencia artificial incluyen comentarios que identifican dicho apoyo, mediante la indicación `Apoyo de IA`.
+
+Los integrantes del proyecto revisaron, comprendieron y verificaron el funcionamiento de los módulos y las pruebas realizadas.
+
+La elaboración de los esquemas de bloques se realizó por los integrantes utilizando la herramienta **diagrams.net**, a partir de la arquitectura y la lógica implementada en Verilog.
+
+---
+
+## 11. 📚 Documentación
+
+La documentación técnica se encuentra en la carpeta `docs/`.
+
+| Archivo o carpeta | Contenido |
+|---|---|
+| `docs/informe_snake.pdf` | Informe del proyecto en formato IEEE |
+| `docs/esquemas/Esquemas_bloques_Snake.pdf` | Diagramas de bloques y máquinas de estados |
+| `docs/esquemas/png/` | Diagramas exportados como imágenes |
+| `docs/esquemas/drawio/` | Archivos editables de los esquemas |
+
+### ✏️ Elaboración de los esquemas
+
+Los esquemas funcionales fueron elaborados por los integrantes del proyecto mediante:
+
+**[diagrams.net](https://app.diagrams.net/)**
+
+Los diagramas representan los registros, contadores, comparadores, multiplexores, máquinas de estados y demás elementos utilizados en cada módulo.
+
+### Convenciones gráficas
+
+| Color | Representación |
+|---|---|
+| 🔵 Azul | Lógica combinacional |
+| 🟠 Naranja | Bloques aritméticos |
+| 🟢 Verde | Registros |
+
+Los números sobre las conexiones representan el ancho de los buses.
+
+Los registros utilizan la señal de reloj `clk` de 100 MHz.
+
+Los archivos `.drawio` pueden abrirse desde diagrams.net mediante:
+
+**File → Open from → Device**
+
+---
+
+## 12. 👥 Autores
+
+**Sara Isabella Tabares Ballesteros**
+
+**Liseth Lorena Zarate Tellez**
+
+**Institución:** Escuela Colombiana de Ingeniería Julio Garavito
+
+**Programa:** Ingeniería Electrónica
+
+**Asignatura:** Electrónica Digital
+
+**Profesor:** Juan David Balaguera
+
+**Año:** 2026
+
+---
+
+<div align="center">
+
+### 🐍 SNAKE — BASYS 3
+
+**Proyecto Final de Electrónica Digital**
+
+Desarrollado en Verilog para FPGA Basys 3.
+
+**Escuela Colombiana de Ingeniería Julio Garavito — 2026**
+
+</div>
