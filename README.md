@@ -189,7 +189,7 @@ Snake_Basys3/
 - Matriz LED RGB **HUB75 de 32 × 32 píxeles**, barrido 1/16.
 - Fuente ATX **Codegen 250XA1, 450 W**.
 - Teclado USB.
-- 16 cables jumper hembra-hembra.
+- 16 cables jumper macho-hembra.
 
 La fuente ATX proporciona el riel de **+5 V**, con una capacidad máxima indicada de 40 A, para alimentar el panel.
 
