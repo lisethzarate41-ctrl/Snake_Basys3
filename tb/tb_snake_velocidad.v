@@ -1,3 +1,5 @@
+// Apoyo de IA (Claude): generacion del testbench y
+// definicion de casos de prueba. Simulacion revisada en Vivado.
 `timescale 1ns/1ps
 module tb_snake_velocidad;
 reg clk=0, rst=1;
