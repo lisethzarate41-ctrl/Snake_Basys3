@@ -511,7 +511,7 @@ La elaboración de los esquemas de bloques se realizó por los integrantes utili
 
 ---
 
-## 11. 📚 Documentación
+## 11.  Documentación
 
 La documentación técnica se encuentra en la carpeta `docs/`.
 
@@ -522,7 +522,7 @@ La documentación técnica se encuentra en la carpeta `docs/`.
 | `docs/esquemas/png/` | Diagramas exportados como imágenes |
 | `docs/esquemas/drawio/` | Archivos editables de los esquemas |
 
-### ✏️ Elaboración de los esquemas
+### Elaboración de los esquemas
 
 Los esquemas funcionales fueron elaborados por los integrantes del proyecto mediante:
 
@@ -548,7 +548,7 @@ Los archivos `.drawio` pueden abrirse desde diagrams.net mediante:
 
 ---
 
-## 12. 👥 Autores
+## 12.  Autores
 
 **Sara Isabella Tabares Ballesteros**
 
@@ -568,7 +568,7 @@ Los archivos `.drawio` pueden abrirse desde diagrams.net mediante:
 
 <div align="center">
 
-### 🐍 SNAKE — BASYS 3
+###  SNAKE — BASYS 3
 
 **Proyecto Final de Electrónica Digital**
 
