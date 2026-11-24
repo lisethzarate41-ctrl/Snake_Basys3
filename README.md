@@ -66,10 +66,10 @@ El objetivo es controlar una serpiente que se desplaza por un tablero de **32 ×
 
 | Elemento | Color en el panel | Función |
 |:---:|:---:|---|
-|  Cabeza | 🟡 Amarillo | Avanza una casilla cada 0,2 segundos |
-| Cuerpo | 🟢 Verde | Sigue el movimiento de la cabeza |
-|  Comida | 🔴 Rojo | Aumenta la longitud en una casilla y el puntaje en una unidad |
-|  Veneno | 🟣 Magenta | Disminuye la longitud en una casilla |
+|  Cabeza |🟡 Amarillo | Avanza una casilla cada 0,2 segundos |
+| Cuerpo |🟢 Verde | Sigue el movimiento de la cabeza |
+|  Comida |🔴 Rojo | Aumenta la longitud en una casilla y el puntaje en una unidad |
+|  Veneno |🟣 Magenta | Disminuye la longitud en una casilla |
 
 ###  Inicio
 
