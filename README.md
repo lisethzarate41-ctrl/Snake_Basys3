@@ -530,7 +530,6 @@ Los archivos de código y testbenches en los que se utilizó inteligencia artifi
 
 Los integrantes del proyecto revisaron, comprendieron y verificaron el funcionamiento de los módulos y las pruebas realizadas.
 
-La elaboración de los esquemas de bloques se realizó por los integrantes utilizando la herramienta **diagrams.net**, a partir de la arquitectura y la lógica implementada en Verilog.
 
 ---
 
