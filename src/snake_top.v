@@ -1,3 +1,4 @@
+// Apoyo de IA (Claude): generacion del paso en 3 ciclos (BLOQUE 1).
 `timescale 1ns/1ps
 // ============================================================
 // snake_top.v  (version con ecuaciones booleanas)
