@@ -1,3 +1,5 @@
+// Apoyo de IA (Claude): elaboracion de estimulos PS/2
+// y casos de prueba para verificar las teclas WASD.
 `timescale 1ns/1ps
 // ============================================================
 // tb_snake_giros.v
