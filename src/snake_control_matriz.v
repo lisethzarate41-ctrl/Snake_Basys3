@@ -1,3 +1,5 @@
+// Apoyo de IA (Claude): implementacion de la FSM one-hot
+// y temporizacion de las señales CLK, LAT y OE del panel HUB75.
 `timescale 1ns/1ps
 // ============================================================
 // snake_control_matriz.v  (version con ecuaciones booleanas)
