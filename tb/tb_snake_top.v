@@ -1,3 +1,5 @@
+// Apoyo de IA (Claude): definicion de pruebas de integracion
+// para verificar la comunicacion y temporizacion entre modulos.
 `timescale 1ns/1ps
 // ============================================================
 // tb_snake_top.v
