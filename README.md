@@ -416,7 +416,7 @@ Para comprobar el funcionamiento de los módulos se desarrollaron testbenches au
 
 | Medida | Resultado |
 |---|---|
-| Testbenches | **15 de 15** |
+| Testbenches | **16 de 16** |
 | Frecuencia principal | 100 MHz |
 | WNS | 0,145 ns |
 | WHS | 0,116 ns |
