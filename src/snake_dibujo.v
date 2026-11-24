@@ -1,3 +1,5 @@
+// Apoyo de IA (Claude): implementacion de comparadores de posicion
+// y sincronizacion de las salidas RGB con el barrido HUB75.
 `timescale 1ns/1ps
 // ============================================================
 // snake_dibujo.v
