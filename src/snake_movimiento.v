@@ -1,3 +1,4 @@
+// Apoyo de IA (Claude): generacion del codigo del decodificador
 `timescale 1ns/1ps
 // ============================================================
 // snake_movimiento.v
