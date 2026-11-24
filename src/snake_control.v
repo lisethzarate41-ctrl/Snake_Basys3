@@ -1,3 +1,4 @@
+// Apoyo de IA (Claude): generacion del codigo de la FSM (ecuaciones de estado y salida) a partir del diagrama de estados del grupo.
 `timescale 1ns/1ps
 // ============================================================
 // snake_control.v
