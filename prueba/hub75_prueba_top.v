@@ -1,3 +1,5 @@
+// Apoyo de IA (Claude): implementacion de patrones de prueba
+// para diagnosticar las señales y conexiones del panel HUB75.
 `timescale 1ns/1ps
 
 // PRUEBA HUB75: CUATRO CUADRANTES
