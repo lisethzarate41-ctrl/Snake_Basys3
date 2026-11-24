@@ -577,7 +577,7 @@ Los registros utilizan la señal de reloj `clk` de 100 MHz.
 
 **Asignatura:** Electrónica Digital
 
-**Profesor:** Juan David Balaguera
+**Profesor:** Juan David Guerrero Balaguera
 
 **Año:** 2026
 
