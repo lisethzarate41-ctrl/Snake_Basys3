@@ -496,7 +496,7 @@ Para aumentar la frecuencia de funcionamiento sería necesario optimizar o segme
 ---
 ## 10.  Declaración de uso de inteligencia artificial
 
-**Herramienta utilizada:** Claude (Anthropic).
+**Herramientas utilizadas:** Claude (Anthropic) y ChatGPT.
 
 Durante el desarrollo del proyecto se utilizó inteligencia artificial como herramienta de apoyo en determinadas partes del código Verilog y en la elaboración y revisión de los testbenches.
 
