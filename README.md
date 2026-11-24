@@ -143,26 +143,52 @@ El proyecto se encuentra organizado en carpetas que separan los módulos de hard
 ```text
 Snake_Basys3/
 │
-├── src/
-│   └── Módulos Verilog
+├── src/                              Módulos Verilog (12)
+│   ├── snake_top.v                   Módulo principal (integración)
+│   ├── snake_velocidad.v
+│   ├── snake_direccion.v
+│   ├── snake_control.v
+│   ├── snake_movimiento.v
+│   ├── snake_colisiones.v
+│   ├── snake_cuerpo.v
+│   ├── snake_objetos.v
+│   ├── snake_puntaje.v
+│   ├── snake_control_matriz.v
+│   ├── snake_dibujo.v
+│   └── snake_puntaje_matriz.v
 │
-├── tb/
-│   └── Testbenches
+├── tb/                               Testbenches (16)
+│   ├── tb_snake_velocidad.v          ┐
+│   ├── tb_snake_direccion.v          │
+│   ├── tb_snake_control.v            │
+│   ├── tb_snake_movimiento.v         │
+│   ├── tb_snake_colisiones.v         │
+│   ├── tb_snake_cuerpo.v             │  Uno por módulo
+│   ├── tb_snake_objetos.v            │
+│   ├── tb_snake_puntaje.v            │
+│   ├── tb_snake_control_matriz.v     │
+│   ├── tb_snake_dibujo.v             │
+│   ├── tb_snake_puntaje_matriz.v     │
+│   ├── tb_snake_top.v                ┘
+│   ├── tb_snake_wasd.v               ┐
+│   ├── tb_snake_giros.v              │  Pruebas del sistema completo
+│   ├── tb_snake_enter.v              │
+│   └── tb_snake_fin_puntaje.v        ┘
 │
 ├── constraints/
-│   └── Snake_Basys3_JA_JB.xdc
+│   └── Snake_Basys3_JA_JB.xdc        Pines y reloj de la Basys 3
 │
 ├── sim/
-│   └── run_all.sh
+│   └── run_all.sh                    Corre todos los testbenches
 │
 ├── prueba/
-│   └── hub75_prueba_top.v
+│   └── hub75_prueba_top.v            Prueba inicial del panel (no es parte del juego)
 │
 ├── docs/
-│   ├── informe_snake.pdf
+│   ├── informe_snake.pdf             Informe IEEE
 │   └── esquemas/
 │       ├── Esquemas_bloques_Snake.pdf
-│       └── png/
+│       └── png/                      Un esquema por módulo
 │
 └── README.md
 ```
@@ -171,14 +197,12 @@ Snake_Basys3/
 
 | Carpeta | Contenido |
 |---|---|
-| `src/` | Módulos Verilog del sistema, incluido `snake_top.v` |
-| `tb/` | Testbenches de los módulos y pruebas de integración |
-| `constraints/` | Restricciones de reloj y asignación de pines |
-| `sim/` | Script de ejecución de simulaciones |
-| `prueba/` | Diseño de prueba de la matriz HUB75 |
-| `docs/` | Informe, diagramas y documentación técnica |
-
----
+| `src/` | Los 12 módulos Verilog del juego. `snake_top.v` es el módulo principal para síntesis |
+| `tb/` | Un testbench autoverificado por cada módulo, más 4 pruebas del sistema completo |
+| `constraints/` | Restricción del reloj de 100 MHz y asignación de pines (panel, teclado, botón y LEDs) |
+| `sim/` | Script que compila y ejecuta todos los testbenches con Icarus Verilog |
+| `prueba/` | Diseño que se usó al inicio para comprobar el panel HUB75. No forma parte del juego |
+| `docs/` | Informe IEEE y esquemas de bloques de todos los módulos |
 ## 4.  Hardware y montaje
 
 ###  Materiales utilizados
