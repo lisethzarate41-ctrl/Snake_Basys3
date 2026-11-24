@@ -1,3 +1,5 @@
+// Apoyo de IA (Claude): implementacion del mapa de ocupacion,
+// manejo de la lista circular y optimizacion de temporizacion.
 `timescale 1ns/1ps
 // Serpiente: mapa de 1024 casillas, lista circular y cola registrada.
 // Optimizaciones que pasaron testbench: cola_actual, p_escritura.
