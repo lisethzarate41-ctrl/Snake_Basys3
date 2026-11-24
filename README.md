@@ -530,8 +530,27 @@ Los archivos de código y testbenches en los que se utilizó inteligencia artifi
 
 Los integrantes del proyecto revisaron, comprendieron y verificaron el funcionamiento de los módulos y las pruebas realizadas.
 
-
 ---
+**Archivos con código generado con apoyo de IA:**
+
+| Archivo | Herramienta | Uso declarado en el archivo |
+|---|---|---|
+| `src/snake_top.v` | Claude | Generación del paso en 3 ciclos (BLOQUE 1) |
+| `src/snake_control.v` | Claude | Generación del código de la FSM (ecuaciones de estado y salida) a partir del diagrama de estados del grupo |
+| `src/snake_movimiento.v` | Claude | Generación del código del decodificador |
+| `src/snake_cuerpo.v` | Claude | Implementación del mapa de ocupación, manejo de la lista circular y optimización de temporización |
+| `src/snake_dibujo.v` | Claude | Implementación de comparadores de posición y sincronización de las salidas RGB con el barrido HUB75 |
+| `src/snake_control_matriz.v` | Claude | Implementación de la FSM one-hot y temporización de las señales CLK, LAT y OE del panel HUB75 |
+| `src/snake_colisiones.v` | Claude | Revisión de la excepción de la cola |
+| `src/snake_direccion.v` | ChatGPT | Diseño del receptor PS/2, ecuaciones booleanas, decodificación de teclas y revisión de reglas de giro |
+| `src/snake_objetos.v` | ChatGPT | Diseño de la FSM para colocar comida y veneno, generación de posiciones mediante LFSR, revisión de casillas ocupadas y diseño del generador pseudoaleatorio de 11 bits |
+| `src/snake_puntaje_matriz.v` | ChatGPT | Diseño del conversor binario a BCD, lógica de visualización, fuente de números 3x5, ecuaciones del ajuste BCD y revisión del esquema |
+| `src/snake_puntaje.v` | ChatGPT | Revisión de la lógica de saturación y elaboración de pruebas de reinicio y conteo |
+| `src/snake_velocidad.v` | ChatGPT | Revisión del ancho del contador, funcionamiento del pulso y casos de prueba |
+| `tb/tb_snake_top.v` | Claude | Pruebas de integración para verificar la comunicación y temporización entre módulos |
+| `tb/tb_snake_wasd.v` | Claude | Estímulos PS/2 y casos de prueba para verificar las teclas WASD |
+| `tb/` (los otros 14 testbenches) | Claude | Generación del testbench y definición de casos de prueba |
+| `prueba/hub75_prueba_top.v` | Claude | Implementación de patrones de prueba para diagnosticar las señales y conexiones del panel HUB75 |
 
 ## 11.  Documentación
 
