@@ -431,8 +431,8 @@ Para comprobar el funcionamiento de los módulos se desarrollaron testbenches au
 
 | Recurso | Utilizados | Disponibles |
 |---|---|---|
-| LUT | Pendiente | 20 800 |
-| Flip-flops | Pendiente | 41 600 |
+| LUT | 6 216 | 20 800 |
+| Flip-flops | 11 644 | 41 600 |
 | I/O | 35 | 106 |
 
 ### Visualización del panel
